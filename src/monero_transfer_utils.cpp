@@ -732,11 +732,13 @@ void monero_transfer_utils::create_transaction(
 	//
 	cryptonote::transaction tx;
 	crypto::secret_key tx_key;
+	std::string tx_privacy_settings = "private"; // or "public"
 	std::vector<crypto::secret_key> additional_tx_keys;
+
 	bool r = cryptonote::construct_tx_and_get_tx_key(
 		sender_account_keys, subaddresses,
 		sources, splitted_dsts, change_dst.addr, extra,
-		tx, unlock_time, tx_key, additional_tx_keys,
+		tx, tx_privacy_settings,unlock_time, tx_key, additional_tx_keys,
 		true, rct_config, true);
 
 	LOG_PRINT_L2("constructed tx, r="<<r);
