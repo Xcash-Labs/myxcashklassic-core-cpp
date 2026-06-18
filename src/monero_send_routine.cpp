@@ -428,6 +428,7 @@ void _reenterable_construct_and_send_tx(
 			step1_retVals.change_amount,
 			step1_retVals.using_fee,
 			args.simple_priority,
+			"private",
 			step1_retVals.using_outs,
 			args.fee_per_b,
 			args.fee_quantization_mask,
