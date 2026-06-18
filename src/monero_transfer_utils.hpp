@@ -252,6 +252,7 @@ namespace monero_transfer_utils
 		uint64_t change_amount,
 		uint64_t fee_amount,
 		uint32_t simple_priority,
+		const string &tx_privacy_settings,
 		const vector<SpendableOutput> &using_outs,
 		uint64_t fee_per_b, // per v8
 		uint64_t fee_quantization_mask,
@@ -285,6 +286,7 @@ namespace monero_transfer_utils
 		const vector<uint64_t>& sending_amounts,
 		uint64_t change_amount,
 		uint64_t fee_amount,
+		const string &tx_privacy_settings,
 		const vector<SpendableOutput> &outputs,
 		vector<RandomAmountOutputs> &mix_outs, // get sorted
 		use_fork_rules_fn_type use_fork_rules_fn,
@@ -308,6 +310,7 @@ namespace monero_transfer_utils
 		const vector<uint64_t>& sending_amounts,
 		uint64_t change_amount,
 		uint64_t fee_amount,
+		const string &tx_privacy_settings,
 		const vector<SpendableOutput> &outputs,
 		vector<RandomAmountOutputs> &mix_outs,
 		const std::vector<uint8_t> &extra, // this is not declared const b/c it may have the output tx pub key appended to it

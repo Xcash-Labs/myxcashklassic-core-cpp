@@ -551,6 +551,7 @@ string serial_bridge::send_step2__try_create_transaction(const string &args_stri
 	if (optl__fork_version_string != none) {
 		fork_version = stoul(*optl__fork_version_string);
 	}
+	auto tx_privacy_settings = json_root.get<std::string>("tx_privacy_settings", "private");
 	Send_Step2_RetVals retVals;
 	monero_transfer_utils::send_step2__try_create_transaction(
 		retVals,
@@ -564,6 +565,7 @@ string serial_bridge::send_step2__try_create_transaction(const string &args_stri
 		stoull(json_root.get<string>("change_amount")),
 		stoull(json_root.get<string>("fee_amount")),
 		stoul(json_root.get<string>("priority")),
+		tx_privacy_settings,
 		using_outs,
 		stoull(json_root.get<string>("fee_per_b")),
 		stoull(json_root.get<string>("fee_mask")),

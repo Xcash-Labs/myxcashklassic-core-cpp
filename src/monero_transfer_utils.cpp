@@ -437,6 +437,7 @@ void monero_transfer_utils::send_step2__try_create_transaction(
 	uint64_t change_amount,
 	uint64_t fee_amount,
 	uint32_t simple_priority,
+	const string &tx_privacy_settings,
 	const vector<SpendableOutput> &using_outs,
 	uint64_t fee_per_b, // per v8
 	uint64_t fee_quantization_mask,
@@ -453,7 +454,7 @@ void monero_transfer_utils::send_step2__try_create_transaction(
 		from_address_string,
 		sec_viewKey_string, sec_spendKey_string,
 		to_address_strings, payment_id_string,
-		sending_amounts, change_amount, fee_amount,
+		sending_amounts, change_amount, fee_amount, tx_privacy_settings,
 		using_outs, mix_outs,
 		use_fork_rules_fn,
 		unlock_time,
@@ -497,6 +498,7 @@ void monero_transfer_utils::create_transaction(
 	const vector<uint64_t>& sending_amounts,
 	uint64_t change_amount,
 	uint64_t fee_amount,
+	const string &tx_privacy_settings,
 	const vector<SpendableOutput> &outputs,
 	vector<RandomAmountOutputs> &mix_outs, 
 	const std::vector<uint8_t> &extra,
@@ -732,13 +734,12 @@ void monero_transfer_utils::create_transaction(
 	//
 	cryptonote::transaction tx;
 	crypto::secret_key tx_key;
-	std::string tx_privacy_settings = "private"; // or "public"
 	std::vector<crypto::secret_key> additional_tx_keys;
 
 	bool r = cryptonote::construct_tx_and_get_tx_key(
 		sender_account_keys, subaddresses,
 		sources, splitted_dsts, change_dst.addr, extra,
-		tx, tx_privacy_settings,unlock_time, tx_key, additional_tx_keys,
+		tx, tx_privacy_settings, unlock_time, tx_key, additional_tx_keys,
 		true, rct_config, true);
 
 	LOG_PRINT_L2("constructed tx, r="<<r);
@@ -770,6 +771,7 @@ void monero_transfer_utils::convenience__create_transaction(
 	const vector<uint64_t>& sending_amounts,
 	uint64_t change_amount,
 	uint64_t fee_amount,
+	const string &tx_privacy_settings,
 	const vector<SpendableOutput> &outputs,
 	vector<RandomAmountOutputs> &mix_outs,
 	use_fork_rules_fn_type use_fork_rules_fn,
@@ -847,7 +849,7 @@ void monero_transfer_utils::convenience__create_transaction(
 		actualCall_retVals,
 		account_keys, subaddr_account_idx, subaddresses,
 		to_addr_infos,
-		sending_amounts, change_amount, fee_amount,
+		sending_amounts, change_amount, fee_amount, tx_privacy_settings,
 		outputs, mix_outs,
 		extra, // TODO: move to after address
 		use_fork_rules_fn,
